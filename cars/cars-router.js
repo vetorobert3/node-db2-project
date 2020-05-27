@@ -13,10 +13,10 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:VIN', (req, res) => {
   const { id } = req.params;
 
-  db('cars').where({ id }).first()
+  db('cars').where({ VIN }).first()
   .then(car => {
     res.json(car);
   }) 
@@ -28,8 +28,8 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const carsData = req.body;
   db('cars').insert(carsData)
-  .then(ids => {
-    db('cars').where({ id: ids[0] })
+  .then(VINS => {
+    db('cars').where({ VIN: VINS[0] })
     .then(newCarEntry => {
       res.status(201).json(newCarEntry);
     });
